@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 
 export default function Navbar() {
 
-  const [location] = useLocation();
-
   const [isNavbarShowing, setNavbarShowing] = useState(false);
+  const [location] = useLocation();
 
   const toggleNavbar = () => {
     setNavbarShowing(!isNavbarShowing);
@@ -14,31 +13,25 @@ export default function Navbar() {
   useEffect(() => {
     const syncNavbar = () => {
       if (window.innerWidth >= 992) {
-        setNavbarShowing(true);
+        setNavbarShowing(true); // open for large screen 
       } else {
-        setNavbarShowing(false);
+        setNavbarShowing(false); //close for small screen
       }
     };
 
-    windows.addEventListener('resize', syncNavbar);
+    window.addEventListener('resize', syncNavbar);
+    syncNavbar();
 
     return () => window.removeEventListener('resize', syncNavbar);
   }, []);
-
-  const isActiveLink = (url) => {
-    if (location == url) {
-      return "nav-link active";
-    } else {
-      return "nav-link";
-    }
-  }
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <a className="navbar-brand" href="#">E-Shop</a>
-          <button className="navbar-toggler"
+          <a className="navbar-brand" href="#">RamSpecation E-Shop</a>
+          <button 
+            className="navbar-toggler"
             type="button"
             onClick={toggleNavbar}>
             <span className="navbar-toggler-icon"></span>
@@ -46,16 +39,16 @@ export default function Navbar() {
           <div className={`collapse navbar-collapse ${isNavbarShowing ? "show" : ""}`} id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link className={'nav-link ${location === "/" ? "active" : ""}'} aria-current="page" href="/">Home</Link>
+                <Link className={`nav-link ${location === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className={'nav-link ${location === "/products" ? "active" : ""}'} href="/products">Products</Link>
+                <Link className={`nav-link ${location === "/products" ? "active" : ""}`} to="/products">Products</Link>
               </li>
               <li className="nav-item">
-                <Link className={'nav-link ${location === "/register" ? "active" : ""}'}href="/register">Register</Link>
+                <Link className={`nav-link ${location === "/register" ? "active" : ""}`}to="/register">Register</Link>
               </li>
               <li className="nav-item">
-                <Link className={'nav-link ${location === "/cart" ? "active" : ""}'} href="/cart">Cart</Link>
+                <Link className={`nav-link ${location === "/cart" ? "active" : ""}`} to="/cart">Shopping Cart</Link>
               </li>
             </ul>
           </div>
