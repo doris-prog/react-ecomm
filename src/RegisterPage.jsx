@@ -30,13 +30,15 @@ export default function RegisterPage() {
     country: ''
   };
 
-  const [, setlocation] = useLocation();
+  const [ , setlocation] = useLocation();
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = async (values, formikHelpers) => {
+
+    // console.log(values);
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/register`, values);
-      console.log('Registration successful!', response.data);
+      // console.log('Registration successful!', response.data);
       showMessage('Registration successful!', 'success');
     } catch (error) {
       console.error('Registration failed: ', error.response?.data || error.message);
@@ -159,7 +161,8 @@ export default function RegisterPage() {
               <Field
                 as="select"
                 className="form-select"
-                id="country">
+                id="country"
+                name="country">
                 <option value="">Select Country</option>
                 <option value="sg">Singapore</option>
                 <option value="my">Malaysia</option>

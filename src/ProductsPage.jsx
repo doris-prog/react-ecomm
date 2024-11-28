@@ -9,15 +9,16 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('/products.json');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
+        console.log()
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products: ', error);
       }
     };
-    
+
     fetchProducts();
-    
+
   }, []);
 
   return (
@@ -27,11 +28,13 @@ export default function ProductsPage() {
         {products.map(product => (
           <div key={product.id} className="col-md-4 mb-4">
             <ProductCard
+              id={product.id}
               imageUrl={product.image}
               productName={product.name}
               price={product.price.toFixed(2)}
               description={product.description}
               category={product.category}
+              product_id={product.id}
             />
           </div>
         ))}

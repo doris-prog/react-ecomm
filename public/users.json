@@ -1,0 +1,47 @@
+[
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "password123",
+    "confirmPassword": "password123",
+    "salutation": "Mr",
+    "marketingPreferences": ["email"],
+    "country": "sg"
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "password": "securePass456",
+    "confirmPassword": "securePass456",
+    "salutation": "Ms",
+    "marketingPreferences": ["sms", "email"],
+    "country": "my"
+  },
+  {
+    "name": "Sarah Lee",
+    "email": "sarah.lee@example.com",
+    "password": "password789",
+    "confirmPassword": "password789",
+    "salutation": "Mrs",
+    "marketingPreferences": ["email"],
+    "country": "in"
+  },
+  {
+    "name": "Michael Brown",
+    "email": "michael.brown@example.com",
+    "password": "michaelPass123",
+    "confirmPassword": "michaelPass123",
+    "salutation": "Mr",
+    "marketingPreferences": ["sms"],
+    "country": "th"
+  },
+  {
+    "name": "Emily White",
+    "email": "emily.white@example.com",
+    "password": "emilyPass321",
+    "confirmPassword": "emilyPass321",
+    "salutation": "Ms",
+    "marketingPreferences": ["sms", "email"],
+    "country": "sg"
+  }
+]

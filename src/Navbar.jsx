@@ -29,8 +29,13 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <a className="navbar-brand" href="#">RamSpecation E-Shop</a>
-          <button 
+          <a className="navbar-brand" href="#">
+            <img
+              src="/images/logo.png"
+              alt="Paws & Pathways Logo"
+              style={{ height: "40px", marginRight: "10px" }}
+            />Paws & Pathways E-Shop</a>
+          <button
             className="navbar-toggler"
             type="button"
             onClick={toggleNavbar}>
@@ -45,7 +50,10 @@ export default function Navbar() {
                 <Link className={`nav-link ${location === "/products" ? "active" : ""}`} to="/products">Products</Link>
               </li>
               <li className="nav-item">
-                <Link className={`nav-link ${location === "/register" ? "active" : ""}`}to="/register">Register</Link>
+                <Link className={`nav-link ${location === "/register" ? "active" : ""}`} to="/register">Register</Link>
+              </li>
+              <li className="nav-item">
+                <Link className={`nav-link ${location === "/login" ? "active" : ""}`} to="/login">Login</Link>
               </li>
               <li className="nav-item">
                 <Link className={`nav-link ${location === "/cart" ? "active" : ""}`} to="/cart">Shopping Cart</Link>

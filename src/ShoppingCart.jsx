@@ -1,11 +1,74 @@
-import React from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import { useCart } from "./CartStore";
+import { useJwt } from "./UserStore";
+import axios from "axios";
 
-export default function ShoppingCart () {
+export default function ShoppingCart() {
 
-  const { getCart, getCartTotal, modifyQuantity, removeFromCart } = useCart();
-
+  const { getCart, getCartTotal, modifyCart, removeFromCart, setCartContent } = useCart();
   const cart = getCart();
+  const { getJwt } = useJwt();
+  const [isUpdating, setIsUpdating] = useState(false);
+  const firstRender = useRef(true);
+
+  const fetchCart = async () => {
+    const jwt = getJwt();
+    // console.log(jwt);
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/api/cart', {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+      console.log('Cart:', response.data);
+      setCartContent(response.data);
+    } catch (error) {
+      console.error('Error fetching cart:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+    return () => { console.log('cleanup') }
+  }, []);
+
+  const updateCart = async () => {
+    setIsUpdating(true);
+    const jwt = getJwt();
+    try {
+      const updatedCart = cart.map(item => {
+        return {
+          product_id: item.product_id,
+          quantity: item.quantity
+        }
+      });
+
+      await axios.put(
+        import.meta.env.VITE_API_URL + '/api/cart',
+        {
+          cartItems: updatedCart
+        }, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+    } catch (error) {
+      console.error('Error updating cart:', error);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return; // Skip the first render
+    }
+    updateCart();
+    return () => { console.log('cleanup') }
+  }, [cart]);
 
   return (
     <div className="container mt-4">
@@ -22,12 +85,24 @@ export default function ShoppingCart () {
                   <h5>{item.productName}</h5>
                   <div className="d-flex align-items-center">
                     <button className="btn btn-sm btn-secondary me-2"
-                      onClick={() => modifyQuantity(item.product_id, item.quantity - 1)}> - </button>
+                      onClick={() => {
+                        modifyCart(item.product_id, item.quantity - 1)
+                      }}
+                      disabled={isUpdating}
+                    > - </button>
                     <p className="mb-0"> Quantity: {item.quantity}</p>
                     <button className="btn btn-sm btn-secondary ms-2"
-                      onClick={() => modifyQuantity(item.product_id, item.quantity + 1)}> + </button>
+                      onClick={() => {
+                        modifyCart(item.product_id, item.quantity + 1)
+                      }}
+                      disabled={isUpdating}
+                    > + </button>
                     <button className="btn btn-sm btn-danger ms-2"
-                      onClick={() => removeFromCart(item.product_id)}>Delete</button>
+                      onClick={() => {
+                        removeFromCart(item.product_id)
+                      }}
+                      disabled={isUpdating}
+                    >Delete</button>
                   </div>
                 </div>
                 <span>${(item.price * item.quantity).toFixed(2)}</span>

@@ -1,14 +1,51 @@
 .card-img-top {
   height: 200px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .flash-alert {
   animation: fadeOut 3s ease forwards;
 }
 
+.cart-img-top {
+  height: 200px;
+  object-fit: contain;
+}
+
 @keyframes fadeOut {
   0% {opacity: 1}
   70% {opacity: 1}
   100% {opacity: 0}
+}
+
+/* Full Height Image that Covers the Screen */
+.scaled-image {
+  width: 100%;           /* Full width of the container */
+  /* height: 100vh;         Full height of the viewport */
+  object-fit: contain;     /* Image will cover the container and may crop */
+}
+
+/* Text Overlay Styles - Position text at the top-right */
+.overlay-text {
+  position: absolute;    /* Absolutely position relative to the parent container */
+  top: 0;                /* Aligns to the top of the container */
+  right: 0;              /* Aligns to the right side of the container */
+  padding: 20px;         /* Adds padding around the text */
+  text-align: center;     /* Align text to the right */
+  color: white;          /* Text color */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for readability */
+  border-radius: 10px;   /* Optional: rounded corners for the text background */
+  max-width: 90%;        /* Ensures the text container does not take up full width */
+}
+
+/* Heading styles */
+.overlay-text h1 {
+  font-size: 3rem;  /* Font size for the header */
+  font-weight: bold;
+}
+
+/* Paragraph styles */
+.overlay-text p {
+  font-size: 1.5rem;  /* Font size for the paragraph */
+  font-weight: lighter;
 }

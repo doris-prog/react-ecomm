@@ -2,35 +2,7 @@
 import { atom, useAtom } from "jotai";
 import Immutable from "seamless-immutable";
 
-const initialCart = Immutable([
-  {
-    "id": 1,
-    "product_id": 1,
-    "productName": "Organic Green Tea",
-    "price": 12.99,
-    "imageUrl": "https://picsum.photos/id/225/300/200",
-    "description": "Premium organic green tea leaves, rich in antioxidants and offering a smooth, refreshing taste.",
-    "quantity": 1
-  },
-  {
-    "id": 2,
-    "product_id": 265,
-    "productName": "Organic Red Tea",
-    "price": 12.99,
-    "imageUrl": "https://picsum.photos/id/225/300/200",
-    "description": "Premium organic green tea leaves, rich in antioxidants and offering a smooth, refreshing taste.",
-    "quantity": 1
-  },
-  {
-    "id": 3,
-    "product_id": 594,
-    "productName": "Organic Black Tea",
-    "price": 12.99,
-    "imageUrl": "https://picsum.photos/id/225/300/200",
-    "description": "Premium organic green tea leaves, rich in antioxidants and offering a smooth, refreshing taste.",
-    "quantity": 1
-  },
-])
+const initialCart = Immutable([])
 
 export const cartAtom = atom(initialCart);
 
@@ -52,12 +24,12 @@ export const useCart = () => {
         const currentQuantity = currentCart[existingItemIndex].quantity;
         return currentCart.setIn([existingItemIndex, 'quantity'], currentQuantity + 1);
       } else {
-        return currentCart.concat({...product, product_id: product.id, quantity: 1});
+        return currentCart.concat({ ...product, product_id: product.id, quantity: 1 });
       }
     });
   };
 
-  const modifyQuantity = (product_id, quantity) => {
+  const modifyCart = (product_id, quantity) => {
     setCart((currentCart) => {
       const existingItemIndex = currentCart.findIndex(item => item.product_id === product_id);
       if (existingItemIndex !== -1) {
@@ -76,11 +48,16 @@ export const useCart = () => {
     });
   }
 
+  const setCartContent = (cartItems) => {
+    setCart(Immutable(cartItems));
+  }
+
   return {
     getCart,
     getCartTotal,
     addToCart,
-    modifyQuantity,
-    removeFromCart
+    modifyCart,
+    removeFromCart,
+    setCartContent
   };
 };

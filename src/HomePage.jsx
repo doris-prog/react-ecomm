@@ -2,21 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "./Header";
 import ProductCard from "./ProductCard";
-// import backgroundImage from "/images/cat.jpg"
 
 export default function HomePage() {
-
-  // const backgroundStyle = {
-  //   backgroundImage: `url(/images/cat.jpg)`,
-  //   backgroundSize: 'cover',
-  //   backgroundPosition: 'center center',
-  //   backgroundRepeat: 'no-repeat',
-  //   height: '100vh',
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   color: 'white', // Optional for text color
-  // };
 
   const [featuredProducts, setFeaturedProducts] = useState([]);
 
@@ -52,8 +39,6 @@ export default function HomePage() {
 
   return (
 
-    // <div style={backgroundStyle}>
-    // </div>
     <>
       <Header />
 
